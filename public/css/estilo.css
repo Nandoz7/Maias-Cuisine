@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap'); /*fonte do site*/ 
 
 body {
   margin: 0;
@@ -14,6 +14,7 @@ body {
   --tamanho-footer: 65px;
 }
 
+/*NAVBAR*/
 .container {
   display: flex;
   width: 80%;
@@ -37,7 +38,7 @@ body {
   color: #d2d2d2;
 }
 
-.agora {
+.navbar .agora {
   font-weight: 800;
 }
 
@@ -47,9 +48,8 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #ffff;
+  color: #d2d2d2;
 }
-
 
 .titulo {
   color: #d2d2d2;
@@ -60,9 +60,9 @@ body {
 .header h1 {
   margin: 0;
 }
+/*FIM DA NAVBAR*/
 
-/* BANNER */
-
+/*BANNER*/
 .banner {
   height: var(--tamanho-banner);
   background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
@@ -80,11 +80,13 @@ body {
   margin: 0;
   padding: 0;
   font-size: 36px;
+  color: #fff;
 }
 
 .banner .container span {
   font-weight: 800;
 }
+/*FIM BANNER*/
 
 /* MISSÃO VISÃO VALORES */
 
@@ -133,9 +135,11 @@ footer {
 footer a {
   margin: 20px;
   text-align: center;
+  text-decoration: none;
+  color: inherit;
 }
 
-footer p {
+footer .gitlink {
   margin-top: 2px;
 }
 
@@ -146,6 +150,7 @@ footer p {
 .plataforma h2{
   display: flex;
   justify-content: center;
+  margin: 0;
 }
 
 
@@ -215,6 +220,12 @@ footer p {
   flex-direction: column;
   justify-content: start;
   padding: 5px 0;
+}
+
+.cadastrar a {
+  text-decoration: underline;
+  text-decoration-color: #000000;
+  color: #8B5E3C;
 }
 
 .botao {
@@ -314,17 +325,7 @@ input {
   width: 50px;
 }
 
-/* SIMULADOR */
 
-.simulador {
-  color: white;
-}
-
-.simulador .container {
-  flex-direction: column;
-  overflow: scroll; 
-  height: var(--tamanho-simulador);
-}
 
 /* ALERTA */
 
