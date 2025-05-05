@@ -38,8 +38,16 @@ body {
   color: #d2d2d2;
 }
 
-.navbar .agora {
-  font-weight: 800;
+.navbar .agora a{
+  font-weight: 900;
+  color: #8B5E3C;
+  transition: color 0.3s ease, background-color 0.3s ease;
+
+}
+.navbar a:hover{
+  color: #8B5E3C;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  font-weight: 900;
 }
 
 .navbar {
@@ -144,6 +152,7 @@ footer .gitlink {
 }
 
 .plataforma {
+  border-top: 2px solid #000000;
   background-color: #d2d2d2;
 }
 
@@ -162,6 +171,7 @@ footer .gitlink {
   background-size:auto;
 }
 
+
 .login .container {
   justify-content: center;
   align-items: center;
@@ -179,6 +189,13 @@ footer .gitlink {
   flex-direction: column;
   height: fit-content;
   padding: 20px 0;
+}
+
+.container .card a img{
+  width: 40px;
+  height: 40px;
+  padding-right: 500px;
+  margin-top: 10px;
 }
 
 .card h2 {
