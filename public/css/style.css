@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+}
+
+/*NAVBAR*/
+header{
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:#23252b9d;
+  background-size: cover;
+  background-size: 100%;
+  box-shadow: 0 5px 25px rgb(0 0 0 / 20%);
+  padding: 0 100px;
+  transition: 0.6s;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 4vh;
+  outline: none;
+  margin-left: -75px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+header .logo img {
+  width: 25px;
+  height: auto;
+  margin-block-start: 8px;
+}
+
+header .navigation{
+  position: relative;
+  line-height: 75px;
+  transition: 0.6s;
+  transition-property: line-height;
+}
+
+header .navigation .menu{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  user-select: none;
+}
+
+.menu-item a{
+  color: #E6C3A1;
+  text-decoration: none;
+  margin: 20px;
+  padding: 0;
+  transition: 0.3s;
+
+}
+
+.menu-item > a:hover{
+  color: #962828b2;
+  transition: 0.3s;
+}
+
+.barra {
+  color: #fff;
+}
+/*FIM NAVBAR*/
+
+
+section{
+  padding: 20px 100px;
+}
+
+.section-home{
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(rgba(49, 49, 49, 0.473), rgba(20, 20, 20, 1)), url(../assets/imgs/fundoINDEX.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-home::before{
+  content: '';
+  position: absolute;
+  background: linear-gradient(to top, #23252B, transparent);
+  width: 100%;
+  height: 20%;
+  bottom: 0;
+}
+
+/*SECTION-TWO*/
+.section-two{
+  min-height: 100vh;
+  background: #23252B;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-two h2{
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: 3em;
+  font-weight: 700;
+}
+
+.section-two p{
+  color: #fff;
+  font-size: 16px;
+  margin: 20px;
+}
+
+.cardinho {
+  display: flex;
+  justify-content: center;
+}
+
+.section-two .card{
+  border: 2px solid #d2d2d2;
+  border-radius: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardinho .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  padding: 50px 50px;
+  flex-direction: column;
+}
+
+.card h2 {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+.section-two::before {
+  content: '';
+  position: absolute;
+  background: linear-gradient(to top, #d2d2d2, transparent);
+  width: 100%;
+  height: 8%;
+  bottom: 0;
+}
+
+.clique {
+  display: flex;
+  justify-content: center;
+}
+
+.clique a {
+  text-decoration: underline;
+  text-decoration-color: white;
+  color: #E6C3A1;
+  font-weight: 900;
+  margin: 0 10px;
+}
+
+/*FIM SECTION-TWO*/
+
+/*FOOTER*/
+footer img {
+  width: 50px;
+  height: 50px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+footer a {
+  margin: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+footer .gitlink {
+  margin-top: 2px;
+}
+
+.plataforma {
+  background-color: #d2d2d2;
+}
+
+.plataforma h2{
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.content {
+  padding: 20px;
+}
+/*FIM FOOTER*/
