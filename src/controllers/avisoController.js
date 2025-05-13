@@ -1,7 +1,7 @@
-var receitaModel = require("../models/receitaModel");
+var avisoModel = require("../models/avisoModel");
 
 function listar(req, res) {
-    receitaModel.listar().then(function (resultado) {
+    avisoModel.listar().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -9,7 +9,7 @@ function listar(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar as receitas: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -17,7 +17,7 @@ function listar(req, res) {
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
-    receitaModel.listarPorUsuario(idUsuario)
+    avisoModel.listarPorUsuario(idUsuario)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -39,10 +39,10 @@ function listarPorUsuario(req, res) {
         );
 }
 
-function pesquisarReceita(req, res) {
-    var receita = req.params.receita;
+function pesquisarDescricao(req, res) {
+    var descricao = req.params.descricao;
 
-    receitaModel.pesquisarReceita(receita)
+    avisoModel.pesquisarDescricao(descricao)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -54,7 +54,7 @@ function pesquisarReceita(req, res) {
         ).catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao buscar as receitas: ", erro.sqlMessage);
+                console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
@@ -62,8 +62,7 @@ function pesquisarReceita(req, res) {
 
 function publicar(req, res) {
     var titulo = req.body.titulo;
-    var pqGosta = req.body.pqGosta;
-    var comoFazer = req.body.comoFazer;
+    var descricao = req.body.descricao;
     var idUsuario = req.params.idUsuario;
 
     if (titulo == undefined) {
@@ -90,10 +89,10 @@ function publicar(req, res) {
 }
 
 function editar(req, res) {
-    var novaEdicao = req.body.descricao;
-    var idReceita = req.params.idAviso;
+    var novaDescricao = req.body.descricao;
+    var idAviso = req.params.idAviso;
 
-    avisoModel.editar(novaEdicao, idReceita)
+    avisoModel.editar(novaDescricao, idAviso)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -110,9 +109,9 @@ function editar(req, res) {
 }
 
 function deletar(req, res) {
-    var idReceita = req.params.idReceita;
+    var idAviso = req.params.idAviso;
 
-    receitaModel.deletar(idReceita)
+    avisoModel.deletar(idAviso)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -130,7 +129,7 @@ function deletar(req, res) {
 module.exports = {
     listar,
     listarPorUsuario,
-    pesquisarReceita,
+    pesquisarDescricao,
     publicar,
     editar,
     deletar

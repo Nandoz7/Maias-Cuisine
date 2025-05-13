@@ -75,16 +75,31 @@
    color: #fff;
  }
 
+
+
  /* LOGIN */
+
+.fundopreto{
+  background-color: rgba(25, 25, 25, 0.124);
+  width: 100%;
+  position: fixed;
+  z-index: 0;
+  
+}
+
+ .fundoLogin {
+  width: 100%;
+  position: fixed;
+  z-index: -1;
+ }
+
  .login {
-   background-image: url('../assets/imgs/fundoLogin.jpg');
-   background-size: cover;
    height: 100vh;
    display: flex;
    justify-content: flex-end;
    align-items: center;
    padding-right: 200px;
-  padding-top: 100px;
+   padding-top: 100px;
  }
 
  .login .container {
@@ -103,6 +118,7 @@
    border-radius: 50px;
    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
  }
+ 
 
  .formulario {
    display: flex;
