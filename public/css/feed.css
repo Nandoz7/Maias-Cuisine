@@ -34,7 +34,7 @@
      display: flex;
      width: 80%;
      height: fit-content;
-     background-image: url('../assets/imgs/fundo-login-cadastro.jpg');
+     background-color: red  ;
      position: relative;
      top: 0;
      left: 20%;
@@ -125,5 +125,4 @@
 
  .avisos {
     color: black;
-    background-color: #d2d2d2;
  }
