@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>M'C | Home</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/index.css">
   <link rel="icon" href="./assets/icon/favicon2.svg">
 
 </head>
@@ -19,8 +19,10 @@
         <div class="close-btn"></div>
         <li class="menu-item"><a href="./index.html">Home</a></li>
         <li class="barra">|</li>
+        <li class="menu-item"><a href="./sobre.html">Sobre mim</a></li>
+        <li class="barra">|</li>
         <li class="menu-item">
-          <a class="sub-btn" href="home2.html?scroll=footer" id="scrollContato">Contato</a>
+          <a class="sub-btn" href="index.html?scroll=footer" id="scrollContato">Contato</a>
         </li>
         <li class="barra">|</li>
         <li class="menu-item">
@@ -50,7 +52,7 @@
         </div>
         <div class="card">
           <h2>⚙️Como funciona?</h2>
-          <p>Você cria sua conta, vê receitas de outras pessoas e pode até postar a sua (mesmo que seja seu primeiro prato!). É um espaço feito para aprender e compartilhar, sem pressão.
+          <p>Você cria sua conta, vê receitas de outras pessoas e pode até postar a sua (mesmo que seja seu primeiro prato). É um espaço feito para aprender e compartilhar, sem pressão.
           </p>
         </div>
       </div>
@@ -88,7 +90,7 @@
 
 <script>
   document.getElementById("scrollContato").addEventListener("click", function (e) {
-    e.preventDefault(); // Impede o redirecionamento padrão
+    e.preventDefault();
     document.getElementById("footer").scrollIntoView({ behavior: "smooth" });
   });
 

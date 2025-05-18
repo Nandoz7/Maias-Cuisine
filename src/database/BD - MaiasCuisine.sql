@@ -1,12 +1,12 @@
-CREATE DATABASE MaiasCooking;
-USE MaiasCooking;
+CREATE DATABASE MaiasCuisine;
+USE MaiasCuisine;
 
-CREATE TABLE usuario(
-idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(50) NOT NULL,
-email VARCHAR(50) NOT NULL UNIQUE,
-senha VARCHAR(15) NOT NULL,
-dtCadastro DATETIME
+CREATE TABLE usuario (
+  idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL UNIQUE,
+  senha VARCHAR(15) NOT NULL,
+  dtCadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE receita(
@@ -25,7 +25,7 @@ idCurtida INT,
 idUsuario INT,
 idReceita INT,
 fkUsuario INT,
-dtCurtida DATETIME,
+dtCurtida DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 CONSTRAINT fkCurt FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT fkCurtidas FOREIGN KEY (idReceita, fkUsuario) REFERENCES receita(idReceita, fkUsuario),
 CONSTRAINT pkComp PRIMARY KEY (idCurtida, idUsuario, idReceita, fkUsuario)
@@ -37,8 +37,10 @@ idUsuario INT,
 idReceita INT,
 fkUsuario INT,
 texto TEXT,
-dtComentario DATETIME,
+dtComentario DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 CONSTRAINT fkCurtUsu FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT fkCurtRec FOREIGN KEY (idReceita, fkUsuario) REFERENCES receita(idReceita, fkUsuario),
 CONSTRAINT pkComp PRIMARY KEY (idComentario, idUsuario, idReceita, fkUsuario)
 );
+
+select * from usuario;

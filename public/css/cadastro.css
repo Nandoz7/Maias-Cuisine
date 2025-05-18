@@ -107,12 +107,12 @@
  }
 
  .card a img {
-    display: flex;
-    position: absolute;
-    left: 250px;
-    height: 80px;
-    padding-top: 30px;
-}
+   display: flex;
+   position: absolute;
+   left: 250px;
+   height: 80px;
+   padding-top: 30px;
+ }
 
  .formulario {
    display: flex;
@@ -152,4 +152,32 @@
  .botao:hover {
    background-color: #962828b2;
    transition: 0.3s;
+ }
+
+ .alerta_erro {
+   position: fixed;
+   top: 100px;
+   /* Afastado da navbar */
+   right: 20px;
+   z-index: 1000;
+ }
+
+ .card_erro {
+   display: none;
+   background-color: #000;
+   color: white;
+   width: 230px;
+   border-radius: 4px;
+   border: #fff 3px solid;
+   padding: 10px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+ }
+
+ .card_erro #mensagem_erro {
+   font-weight: 500;
+   font-size: 20px;
+ }
+
+ #div_erros_login {
+   display: none
  }
