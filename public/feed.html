@@ -77,13 +77,13 @@
                             <label>
                                 Como fazer:
                                 <br>
-                                <textarea name="comoFazer" id="comoFazer" maxlength="250" rows="5"></textarea>
+                                <input name="comoFazer" id="comoFazer" type="text">
                             </label>
                             <br>
                             <br>
                             <button onsubmit="publicar()">Postar</button>
                         </form>
-                    </div >
+                    </div>
                     <h1>Mural de Receitas</h1>
                     <div class="div-results">
                         <div id="feed_container" class="feed-container">
@@ -102,7 +102,7 @@
 </html>
 
 <script>
-    
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     var idUsuario = Number(sessionStorage.ID_USUARIO);
 
@@ -112,12 +112,21 @@
 
     function publicar() {
 
-        var corpo = {
-            titulo: form_postagem.titulo.value,
-            comoFazer: form_postagem.comoFazer.value,
-            pqGosta: form_postagem.pqGosta.value,
-            fkUsuario: idUsuario
+        var titulo = form_postagem.titulo.value.trim();
+        var comoFazer = form_postagem.comoFazer.value.trim();
+        var pqGosta = form_postagem.pqGosta.value.trim();
+
+        if (titulo === "" || comoFazer === "" || pqGosta === "") {
+            alert("Por favor, preencha todos os campos antes de postar sua receita.");
+            return false;
         }
+
+        var corpo = {
+            titulo: titulo,
+            comoFazer: comoFazer,
+            pqGosta: pqGosta,
+            fkUsuario: idUsuario
+        };
 
         fetch(`/receita/publicar/${idUsuario}`, {
             method: "post",
@@ -196,50 +205,60 @@
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-
                         // criando e manipulando elementos do HTML via JavaScript
                         var divPublicacao = document.createElement("div");
                         var spanID = document.createElement("span");
                         var spanTitulo = document.createElement("span");
                         var spanNome = document.createElement("span");
+                        var divMotivo = document.createElement("div");
                         var divDescricao = document.createElement("div");
                         var divButtons = document.createElement("div");
-                        var btnEditar = document.createElement("button");
-                        var btnDeletar = document.createElement("button");
+                        // Aqui você cria os botões de deletar e editar.
+                        if (idUsuario == publicacao.fkUsuario) {
+                            var btnEditar = document.createElement("button");
+                            var btnDeletar = document.createElement("button");
 
+                            btnEditar.className = "publicacao-btn";
+                            btnEditar.id = "btnEditar" + publicacao.idReceita;
+                            btnEditar.textContent = "Editar";
+                            btnEditar.onclick = () => editar(publicacao.idReceita);
+
+                            btnDeletar.className = "publicacao-btn deletar";
+                            btnDeletar.id = "btnDeletar" + publicacao.idReceita;
+                            btnDeletar.textContent = "Deletar";
+                            btnDeletar.onclick = () => deletar(publicacao.idReceita);
+                        }
 
                         spanID.innerHTML = "ID: <b>" + publicacao.idReceita + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        divMotivo.innerHTML = "Por que gosta: <b>" + publicacao.pqGosta + "</b>";
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.comoFazer + "</b>";
-                        btnEditar.innerHTML = "Editar";
-                        btnDeletar.innerHTML = "Deletar";
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idReceita;
                         spanNome.className = "publicacao-nome";
                         spanTitulo.className = "publicacao-titulo";
+                        divMotivo.className = "publicacao-motivo";
                         divDescricao.className = "publicacao-descricao";
 
-                        divButtons.className = "div-buttons"
+                        divButtons.className = "div-buttons";
 
-                        btnEditar.className = "publicacao-btn-editar"
-                        btnEditar.id = "btnEditar" + publicacao.idReceita;
-                        btnEditar.setAttribute("onclick", `editar(${publicacao.idReceita})`);
-
-                        btnDeletar.className = "publicacao-btn-editar"
-                        btnDeletar.id = "btnDeletar" + publicacao.idReceita;
-                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idReceita})`);
 
                         divPublicacao.appendChild(spanID);
                         divPublicacao.appendChild(spanNome);
                         divPublicacao.appendChild(spanTitulo);
+                        divPublicacao.appendChild(divMotivo); // novo conteúdo
                         divPublicacao.appendChild(divDescricao);
                         divPublicacao.appendChild(divButtons);
-                        divButtons.appendChild(btnEditar);
-                        divButtons.appendChild(btnDeletar);
+                        if (idUsuario == publicacao.fkUsuario) {
+                            divButtons.appendChild(btnDeletar);
+                            divButtons.appendChild(btnEditar);
+                        }
+
                         feed.appendChild(divPublicacao);
                     }
+
 
                     // finalizarAguardar();
                 });

@@ -43,7 +43,7 @@ button {
 }
 
 .border-secondary {
-    border: 3px solid var(--secondary-brand-color);
+    border: 3px solid var(--secondary-brand-color); 
 }
 
 .padding-8 {

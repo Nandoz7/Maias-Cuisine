@@ -6,10 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M'C | Quiz</title>
     <link rel="stylesheet" href="./css/quiz.css">
+    <link rel="stylesheet" href="./css/feed.css">
 </head>
 
 
 <body onload="onloadEsconder()">
+
+    <div class="header-left">
+
+            <h1>Maias' Cuisine</h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav">
+                
+                    <h3>Quiz</h3>
+                
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>Painel de dados</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
     <div id="pontuacaoEJogo">
         <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
 
