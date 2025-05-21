@@ -1,12 +1,13 @@
 CREATE DATABASE MaiasCuisine;
 USE MaiasCuisine;
+DROP DATABASE MaiasCuisine;
 
 CREATE TABLE usuario (
   idUsuario INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL UNIQUE,
   senha VARCHAR(15) NOT NULL,
-  dtCadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  dtCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE receita(
@@ -15,7 +16,7 @@ fkUsuario INT,
 titulo VARCHAR(100) NOT NULL,
 pqGosta TEXT,
 comoFazer TEXT,
-dtPostagem DATETIME,
+dtPostagem DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT fkRecUsu FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT pkComposta PRIMARY KEY (idReceita, fkUsuario)
 );
@@ -44,3 +45,4 @@ CONSTRAINT pkComp PRIMARY KEY (idComentario, idUsuario, idReceita, fkUsuario)
 );
 
 select * from usuario;
+select * from receita;

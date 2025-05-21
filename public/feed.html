@@ -9,7 +9,7 @@
     <title>M'C | Feed</title>
 
     <link rel="stylesheet" href="./css/feed.css" />
-    <script src="../js/sessao.js"></script>
+    <script src="./js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -77,11 +77,11 @@
                             <label>
                                 Como fazer:
                                 <br>
-                                <textarea name="comoFazer" id="textarea_comoFazer" maxlength="250" rows="5"></textarea>
+                                <textarea name="comoFazer" id="comoFazer" maxlength="250" rows="5"></textarea>
                             </label>
                             <br>
                             <br>
-                            <button>Postar</button>
+                            <button onsubmit="publicar()">Postar</button>
                         </form>
                     </div >
                     <h1>Mural de Receitas</h1>
@@ -104,18 +104,19 @@
 <script>
     
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    var idUsuario = Number(sessionStorage.ID_USUARIO);
 
     function limparFormulario() {
         document.getElementById("form_postagem").reset();
     }
 
     function publicar() {
-        var idUsuario = sessionStorage.ID_USUARIO;
 
         var corpo = {
             titulo: form_postagem.titulo.value,
             comoFazer: form_postagem.comoFazer.value,
-            pqGosta: form_postagem.pqGosta.value
+            pqGosta: form_postagem.pqGosta.value,
+            fkUsuario: idUsuario
         }
 
         fetch(`/receita/publicar/${idUsuario}`, {
@@ -130,9 +131,9 @@
 
             if (resposta.ok) {
                 window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-                window.location = "/dashboard/mural.html";
+                window.location = "/feed.html";
                 limparFormulario();
-                finalizarAguardar();
+                // finalizarAguardar();
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -140,7 +141,7 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
+            // finalizarAguardar();
         });
 
         return false;
@@ -166,7 +167,7 @@
 
             if (resposta.ok) {
                 window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                window.location = "/dashboard/mural.html"
+                window.location = "feed.html"
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -178,7 +179,7 @@
     }
 
     function atualizarFeed() {
-        fetch("/receitas/listar").then(function (resposta) {
+        fetch("/receita/listar").then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
@@ -210,7 +211,7 @@
                         spanID.innerHTML = "ID: <b>" + publicacao.idReceita + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
-                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.comoFAzer + "</b>";
+                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.comoFazer + "</b>";
                         btnEditar.innerHTML = "Editar";
                         btnDeletar.innerHTML = "Deletar";
 
@@ -240,14 +241,14 @@
                         feed.appendChild(divPublicacao);
                     }
 
-                    finalizarAguardar();
+                    // finalizarAguardar();
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            finalizarAguardar();
+            // finalizarAguardar();
         });
     }
 
