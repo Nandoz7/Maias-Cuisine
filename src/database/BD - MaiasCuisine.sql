@@ -10,6 +10,15 @@ CREATE TABLE usuario (
   dtCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE quiz (
+idQuiz INT PRIMARY KEY AUTO_INCREMENT,
+qtdAcertos INT NOT NULL,
+qtdErros INT NOT NULL,
+dtQuiz DATETIME DEFAULT CURRENT_TIMESTAMP,
+fkUsuarioQuiz INT UNIQUE,
+CONSTRAINT fkQuizUsu FOREIGN KEY (fkUsuarioQuiz) REFERENCES usuario(idUsuario)
+);
+
 CREATE TABLE receita(
 idReceita INT AUTO_INCREMENT,
 fkUsuario INT,
@@ -48,3 +57,4 @@ select * from usuario;
 select * from receita;
 select * from curtida;
 select * from comentario;
+select * from quiz;

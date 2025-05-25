@@ -7,6 +7,7 @@
     <title>M'C | Quiz</title>
     <link rel="stylesheet" href="./css/quiz.css">
     <link rel="stylesheet" href="./css/feed.css">
+    <link rel="icon" href="./assets/icon/favicon2.svg">
 </head>
 
 
@@ -14,7 +15,7 @@
 
     <div class="header-left">
 
-        <h1>Maias' Cuisine</h1>
+        <h1>Maias' Cuisine <img src="./assets/icon/favicon2.svg"></h1>
 
         <div class="hello">
             <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
@@ -107,6 +108,10 @@
 
 </html>
 <script>
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    var idUsuario = Number(sessionStorage.ID_USUARIO);
+
     const listaDeQuestoes = [
 
         {

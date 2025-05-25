@@ -9,9 +9,10 @@
     <title>M'C | Dashboards</title>
 
     <link rel="stylesheet" href="./css/dashboards.css">
+    <link rel="icon" href="./assets/icon/favicon2.svg">
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -20,7 +21,7 @@
 
     <div class="janela">
         <div class="header-left">
-            <h1>Maias' Cuisine</h1>
+            <h1>Maias' Cuisine <img src="./assets/icon/favicon2.svg"></h1>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">undefined</span>!</h3>
@@ -71,6 +72,10 @@
     </div>
 
     <script>
+
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+        var idUsuario = Number(sessionStorage.ID_USUARIO);
+
         // Gráfico 1: receitas por hora
         const ctx1 = document.getElementById('myChart');
         new Chart(ctx1, {
@@ -88,8 +93,8 @@
                         0, 1, 0, 0, 0, 2, 3, 5, 8, 6, 4, 5,
                         7, 8, 6, 5, 4, 3, 2, 4, 3, 2, 1, 0
                     ],
-                    borderColor: '#ff007f',
-                    backgroundColor: 'rgba(255, 0, 127, 0.2)',
+                    borderColor: '#E6C3A1',
+                    backgroundColor: '#962828b2',
                     borderWidth: 2,
                     tension: 0.3,
                     fill: true
@@ -119,9 +124,9 @@
                 datasets: [{
                     label: 'Quantidade de Postagens',
                     data: postagens,
-                    borderWidth: 1,
-                    borderColor: '#ff007f',
-                    backgroundColor: '#81D8D0'
+                    borderWidth: 3,
+                    borderColor: '#962828b2',
+                    backgroundColor: '#E6C3A1'
                 }]
             },
             options: {
@@ -149,7 +154,7 @@
                 datasets: [{
                     label: 'Acertos por Pergunta',
                     data: acertosPorPergunta,
-                    backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99']
+                    backgroundColor: ['#962828b2', '#E6C3A1', '#d2d2d2', '#000']
                 }]
             },
             options: {

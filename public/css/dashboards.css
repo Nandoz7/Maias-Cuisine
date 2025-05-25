@@ -13,6 +13,12 @@ body {
   color: #f0f0f0;
 }
 
+img {
+  width: 25px;
+  height: auto;
+  margin-block-start: 8px;
+}
+
 .janela {
   display: flex;
   height: 100vh;
@@ -55,23 +61,25 @@ body {
 
 .btn-nav {
   width: 70%;
-  background-color: #2c2c2e;
-  border-radius: 6px;
+  background-color: #962828b2;
+  border-radius: 50px;
   text-align: center;
   padding: 10px 0;
-  color: #ffffff;
-  transition: background-color 0.2s;
+  color: white;
+  transition: 0.3s;
 }
 
 .btn-nav:hover {
-  background-color: #3c3c3e;
+  background-color: #E6C3A1;
+  color: black;
+  transition: 0.3s;
 }
 
 .btn-nav-white {
   width: 70%;
   background-color: #E6C3A1;
   color: #000;
-  border-radius: 6px;
+  border-radius: 50px;
   text-align: center;
   padding: 10px 0;
   font-weight: bold;
@@ -84,10 +92,10 @@ body {
 }
 
 .btn-logout {
-  width: 60%;
+  width: 50%;
   background-color: #E6C3A1;
   color: black;
-  border-radius: 8px;
+  border-radius: 50px;
   text-align: center;
   padding: 10px;
   cursor: pointer;

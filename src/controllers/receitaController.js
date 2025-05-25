@@ -130,8 +130,6 @@ function deletar(req, res) {
 
 module.exports = {
     listar,
-    listarPorUsuario,
-    pesquisarDescricao,
     publicar,
     editar,
     deletar
