@@ -22,23 +22,23 @@ CONSTRAINT pkComposta PRIMARY KEY (idReceita, fkUsuario)
 );
 
 CREATE TABLE curtida(
-idCurtida INT,
+idCurtida INT AUTO_INCREMENT,
 idUsuario INT,
 idReceita INT,
 fkUsuario INT,
-dtCurtida DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+dtCurtida DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT fkCurt FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT fkCurtidas FOREIGN KEY (idReceita, fkUsuario) REFERENCES receita(idReceita, fkUsuario),
 CONSTRAINT pkComp PRIMARY KEY (idCurtida, idUsuario, idReceita, fkUsuario)
 );
 
 CREATE TABLE comentario(
-idComentario INT,
+idComentario INT AUTO_INCREMENT,
 idUsuario INT,
 idReceita INT,
 fkUsuario INT,
 texto TEXT,
-dtComentario DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+dtComentario DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT fkCurtUsu FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT fkCurtRec FOREIGN KEY (idReceita, fkUsuario) REFERENCES receita(idReceita, fkUsuario),
 CONSTRAINT pkComp PRIMARY KEY (idComentario, idUsuario, idReceita, fkUsuario)
@@ -46,3 +46,5 @@ CONSTRAINT pkComp PRIMARY KEY (idComentario, idUsuario, idReceita, fkUsuario)
 
 select * from usuario;
 select * from receita;
+select * from curtida;
+select * from comentario;

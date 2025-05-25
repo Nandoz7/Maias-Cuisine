@@ -14,35 +14,35 @@
 
     <div class="header-left">
 
-            <h1>Maias' Cuisine</h1>
+        <h1>Maias' Cuisine</h1>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
+        <div class="hello">
+            <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+        </div>
 
-            <div class="btn-nav">
-                
-                    <h3>Quiz</h3>
-                
-            </div>
+        <div class="btn-nav">
 
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Painel de dados</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="feed.html">
-                    <h3>Feed</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
+            <h3>Quiz</h3>
 
         </div>
+
+        <div class="btn-nav-white">
+            <a href="./dashboard.html">
+                <h3>Painel de dados</h3>
+            </a>
+        </div>
+
+        <div class="btn-nav-white">
+            <a href="feed.html">
+                <h3>Feed</h3>
+            </a>
+        </div>
+
+        <div class="btn-logout" onclick="limparSessao()">
+            <h3>Sair</h3>
+        </div>
+
+    </div>
 
     <div id="pontuacaoEJogo">
         <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
@@ -216,6 +216,8 @@
     }
 
     function iniciarQuiz() {
+        document.getElementById("spanCertas").innerHTML = certas
+        document.getElementById("spanErradas").innerHTML = erradas
         document.getElementById('pontuacao').style.display = "flex"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
@@ -282,16 +284,13 @@
         btnSubmeter.disabled = false
 
         desmarcarRadioButtons()
+        limparCoresBackgroundOpcoes()
 
-        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
-            alert("Atenção... a próxima é a ultima questão!")
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else {
             finalizarJogo()
         }
-        limparCoresBackgroundOpcoes()
     }
 
     function tentarNovamente() {
@@ -368,14 +367,14 @@
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
 
-        document.getElementById('jogo').classList.add("text-new-gray") 
+        document.getElementById('jogo').classList.add("text-new-gray")
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
