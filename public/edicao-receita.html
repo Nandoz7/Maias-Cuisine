@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M'C | Feed</title>
 
-
     <link rel="stylesheet" href="./css/feed.css" />
     <script src="../js/sessao.js"></script>
 
@@ -19,13 +18,8 @@
 </head>
 
 <body onload="validarSessao(), listarInfosDeUm()" style="background-color: #161618;">
-    <!-- <body onload="validarSessao()"> -->
-
     <div class="janela">
-
-
         <div class="header-left">
-
             <h1>Maias' Cuisine</h1>
 
             <div class="hello">
@@ -53,11 +47,9 @@
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
             </div>
-
         </div>
 
         <div class="dash-right">
-
             <div class="avisos">
                 <div class="container">
                     <h1>Editar uma receita</h1>
@@ -77,12 +69,11 @@
                         <label>
                             Como fazer:
                             <br>
-                            <input name="comoFazer" id="comoFazer" type="text"></input>
+                            <input name="comoFazer" id="comoFazer" type="text">
                         </label>
                         <br>
                         <button onclick="editar()">Salvar</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -97,21 +88,31 @@
     }
 
     function editar() {
+        const tituloValor = titulo.value.trim();
+        const pqGostaValor = pqGosta.value.trim();
+        const comoFazerValor = comoFazer.value.trim();
+
+        
+        if (!tituloValor || !pqGostaValor || !comoFazerValor) {
+            alert('Preencha todos os campos para salvar sua receita');
+            return;
+        }
+
+        // Faz a requisição para editar a receita
         fetch(`/receita/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                titulo: titulo.value,
-                pqGosta: pqGosta.value,
-                comoFazer: comoFazer.value
+                titulo: tituloValor,
+                pqGosta: pqGostaValor,
+                comoFazer: comoFazerValor
             })
         }).then(function (resposta) {
-
             if (resposta.ok) {
-                window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                window.location = "/feed.html"
+                window.alert("Post atualizado com sucesso pelo usuário de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "/feed.html";
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -121,5 +122,4 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-
 </script>

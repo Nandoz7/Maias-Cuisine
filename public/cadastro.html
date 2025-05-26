@@ -2,27 +2,25 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>M'C | Login</title>
+  <title>M'C | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="./css/cadastro.css">
-  <link rel="icon" href="./assets/icon/favicon2.svg">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald&display=swap">
-
+  <link rel="stylesheet" href="./css/cadastro.css" />
+  <link rel="icon" href="./assets/icon/favicon2.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" />
 </head>
 
-<body onload="listar()">
+<body>
   <header>
-    <a class="logo">Maia's Cuisine <img src="./assets/icon/favicon2.svg"></a>
+    <a class="logo">Maia's Cuisine <img src="./assets/icon/favicon2.svg" /></a>
 
     <div class="navigation">
       <ul class="menu">
-        <div class="close-btn"></div>
         <li class="menu-item"><a href="./index.html">Home</a></li>
         <li class="barra">|</li>
         <li class="menu-item"><a href="./sobre.html">Sobre mim</a></li>
@@ -34,120 +32,133 @@
         <li class="menu-item">
           <a class="sub-btn" href="./login.html">Login </a>
         </li>
-
-
       </ul>
     </div>
   </header>
 
   <div class="login">
     <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
+      <div class="card_erro" id="cardErro" style="display: none;">
         <span id="mensagem_erro"></span>
       </div>
     </div>
     <div class="container">
       <div class="card card-login">
-        <a href="login.html"><img src="./assets/imgs/setaVoltar.svg"></a>
+        <a href="login.html"><img src="./assets/imgs/setaVoltar.svg" /></a>
         <h2>Crie sua conta</h2>
         <div class="formulario">
           <div class="campo">
             <span>Nome completo:</span>
-            <input id="nome_input" type="text" placeholder="Digite seu nome">
+            <input id="nome_input" type="text" placeholder="Digite seu nome" />
           </div>
           <div class="campo">
             <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="Digite seu e-mail">
+            <input id="email_input" type="text" placeholder="Digite seu e-mail" />
           </div>
           <div class="campo">
             <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="Digite sua senha">
+            <input id="senha_input" type="password" placeholder="Digite sua senha" />
           </div>
           <div class="campo">
             <span>Confirmação de senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="Repita sua senha">
+            <input id="confirmacao_senha_input" type="password" placeholder="Repita sua senha" />
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
       </div>
     </div>
+  </div>
 
+  <script>
+    function cadastrar() {
+      var nome = document.getElementById("nome_input").value.trim();
+      var email = document.getElementById("email_input").value.trim();
+      var senha = document.getElementById("senha_input").value;
+      var confirmacaoSenha = document.getElementById("confirmacao_senha_input").value;
 
+      var erro = document.getElementById("cardErro");
+      var mensagem = document.getElementById("mensagem_erro");
+      erro.style.display = "none";
+      mensagem.innerHTML = "";
+
+      // Validação: campos obrigatórios
+      if (!nome || !email || !senha || !confirmacaoSenha) {
+        erro.style.display = "block";
+        mensagem.innerHTML = "Preencher todos os campos para prosseguir";
+        return;
+      }
+
+      // Validação de email
+      if (!email.includes("@") || !email.includes(".")) {
+        erro.style.display = "block";
+        mensagem.innerHTML = "Digite um e-mail válido com '@' e '.'";
+        return;
+      }
+
+      // Validação de senha
+      var temMaiuscula = false;
+      var temNumero = false;
+      var temEspecial = false;
+      var especiais = "!.@#$%^&*()_+-=[]{}/?<>";
+
+      for (var i = 0; i < senha.length; i++) {
+        var char = senha[i];
+
+        if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+          temMaiuscula = true;
+        }
+
+        if ("0123456789".includes(char)) {
+          temNumero = true;
+        }
+
+        if (especiais.includes(char)) {
+          temEspecial = true;
+        }
+      }
+
+      if (!temMaiuscula || !temNumero || !temEspecial) {
+        erro.style.display = "block";
+        mensagem.innerHTML = "A senha deve conter pelo menos uma letra maiúscula, um número e um caractere especial.";
+        return;
+      }
+
+      // Verificação de senha igual
+      if (senha !== confirmacaoSenha) {
+        erro.style.display = "block";
+        mensagem.innerHTML = "As senhas não coincidem.";
+        return;
+      }
+      
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeServer: nome,
+          emailServer: email,
+          senhaServer: senha,
+        }),
+      })
+        .then(function (resposta) {
+          if (resposta.ok) {
+            erro.style.display = "block";
+            mensagem.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
+            setTimeout(() => {
+              window.location.href = "login.html";
+            }, 2000);
+          } else {
+            throw new Error("Erro ao cadastrar.");
+          }
+        })
+        .catch(function (erroBack) {
+          erro.style.display = "block";
+          mensagem.innerHTML = "Erro no cadastro. Tente novamente.";
+          console.error(erroBack);
+        });
+    }
+  </script>
 </body>
 
 </html>
-
-<script>
-
-  function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "Preencha todos os campos";
-
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
-    }
-
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location.href = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
-
-    return false;
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
-</script>
