@@ -91,10 +91,12 @@ function publicar(req, res) {
 }
 
 function editar(req, res) {
-    var novaDescricao = req.body.comoFazer;
+    var titulo = req.body.titulo;
+    var comoFazer = req.body.comoFazer;
+    var pqGosta = req.body.pqGosta;
     var idReceita = req.params.idReceita;
 
-    receitaModel.editar(novaDescricao, idReceita)
+    receitaModel.editar(titulo, pqGosta, comoFazer, idReceita)
         .then(
             function (resultado) {
                 res.json(resultado);
