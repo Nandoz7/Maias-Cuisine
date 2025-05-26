@@ -72,3 +72,9 @@ button {
 .text-new-gray {
     color: var(--new-gray);
 }
+
+#pontuacaoEJogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
