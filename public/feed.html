@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="./css/feed.css" />
     <link rel="icon" href="./assets/icon/favicon2.svg">
     <script src="./js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
@@ -78,7 +77,8 @@
                             <label>
                                 Como fazer:
                                 <br>
-                                <input name="comoFazer" id="comoFazer" type="text" placeholder="Ex: Ingredientes e modo de preparo">
+                                <input name="comoFazer" id="comoFazer" type="text"
+                                    placeholder="Ex: Ingredientes e modo de preparo">
                             </label>
                             <br>
                             <br>
@@ -194,7 +194,7 @@
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
                     var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    mensagem.innerHTML = "Nenhum resultado encontrado.";
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
@@ -204,9 +204,13 @@
 
                     var feed = document.getElementById("feed_container");
                     feed.innerHTML = "";
+
+                    // Inverter a ordem das postagens
+                    resposta.reverse();
+
                     for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
-                        // criando e manipulando elementos do HTML via JavaScript
+                        let publicacao = resposta[i]; // ⚠️ USAR `let` AQUI é essencial
+
                         var divPublicacao = document.createElement("div");
                         var spanID = document.createElement("span");
                         var spanTitulo = document.createElement("span");
@@ -214,21 +218,6 @@
                         var divMotivo = document.createElement("div");
                         var divDescricao = document.createElement("div");
                         var divButtons = document.createElement("div");
-                        // Aqui você cria os botões de deletar e editar.
-                        if (idUsuario == publicacao.fkUsuario) {
-                            var btnEditar = document.createElement("button");
-                            var btnDeletar = document.createElement("button");
-
-                            btnEditar.className = "publicacao-btn";
-                            btnEditar.id = "btnEditar" + publicacao.idReceita;
-                            btnEditar.textContent = "Editar";
-                            btnEditar.onclick = () => editar(publicacao.idReceita);
-
-                            btnDeletar.className = "publicacao-btn deletar";
-                            btnDeletar.id = "btnDeletar" + publicacao.idReceita;
-                            btnDeletar.textContent = "Deletar";
-                            btnDeletar.onclick = () => deletar(publicacao.idReceita);
-                        }
 
                         spanID.innerHTML = "ID: <b>" + publicacao.idReceita + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
@@ -242,34 +231,46 @@
                         spanTitulo.className = "publicacao-titulo";
                         divMotivo.className = "publicacao-motivo";
                         divDescricao.className = "publicacao-descricao";
-
                         divButtons.className = "div-buttons";
 
+                        // ✅ Cria os botões DENTRO do escopo certo
+                        if (idUsuario === publicacao.fkUsuario) {
+                            let btnEditar = document.createElement("button");
+                            let btnDeletar = document.createElement("button");
+
+                            btnEditar.className = "publicacao-btn";
+                            btnEditar.textContent = "Editar";
+                            btnEditar.onclick = function () {
+                                editar(publicacao.idReceita);
+                            };
+
+                            btnDeletar.className = "publicacao-btn deletar";
+                            btnDeletar.textContent = "Deletar";
+                            btnDeletar.onclick = function () {
+                                deletar(publicacao.idReceita);
+                            };
+
+                            divButtons.appendChild(btnEditar);
+                            divButtons.appendChild(btnDeletar);
+                        }
 
                         divPublicacao.appendChild(spanID);
                         divPublicacao.appendChild(spanNome);
                         divPublicacao.appendChild(spanTitulo);
-                        divPublicacao.appendChild(divMotivo); // novo conteúdo
+                        divPublicacao.appendChild(divMotivo);
                         divPublicacao.appendChild(divDescricao);
                         divPublicacao.appendChild(divButtons);
-                        if (idUsuario == publicacao.fkUsuario) {
-                            divButtons.appendChild(btnDeletar);
-                            divButtons.appendChild(btnEditar);
-                        }
 
                         feed.appendChild(divPublicacao);
                     }
-
-
-                    // finalizarAguardar();
                 });
             } else {
-                throw ('Houve um erro na API!');
+                throw ("Houve um erro na API!");
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            // finalizarAguardar();
         });
     }
+
 
 </script>
