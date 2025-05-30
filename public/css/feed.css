@@ -9,8 +9,7 @@
 }
 
 body {
-  background-color: #161618;
-  color: #f0f0f0;
+  background-color: #E6C3A1;
 }
 
 .janela {
@@ -127,7 +126,7 @@ img {
 
 .container h1 {
   margin-bottom: 20px;
-  color: #f8f8f8;
+  color: #000;
   text-align: center;
 }
 
@@ -256,19 +255,8 @@ button:active {
   background-color: #c9302c;
 }
 
-/* Espaçamento entre botões */
 .div-buttons {
   display: flex;
   gap: 12px;
-  margin-top: 10px;
-}
-
-/* Estilização do "Por que gosta" */
-.publicacao-motivo {
-  font-style: italic;
-  color: #bbbbbb;
-}
-
-.div-buttons {
-  margin-top: 10px;
+  margin-top: 15px;
 }

@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="validarSessao(), atualizarFeed()" style="background-color: #161618;">
+<body onload="validarSessao(), atualizarFeed()">
 
     <div class="janela">
 
@@ -140,7 +140,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                window.alert("Post realizado com sucesso!");
                 window.location = "/feed.html";
                 limparFormulario();
                 // finalizarAguardar();
@@ -161,7 +161,6 @@
     function editar(idReceita) {
         sessionStorage.ID_POSTAGEM_EDITANDO = idReceita;
         console.log("cliquei em editar - " + idReceita);
-        window.alert("Você será redirecionado à página de edição da receita de id número: " + idReceita);
         window.location = "edicao-receita.html"
 
     }
@@ -176,7 +175,7 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.alert("Post deletado com sucesso!");
                 window.location = "feed.html"
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
@@ -205,11 +204,11 @@
                     var feed = document.getElementById("feed_container");
                     feed.innerHTML = "";
 
-                    // Inverter a ordem das postagens
+                    // Usei para inverter a ordem de postagens
                     resposta.reverse();
 
                     for (let i = 0; i < resposta.length; i++) {
-                        let publicacao = resposta[i]; // ⚠️ USAR `let` AQUI é essencial
+                        let publicacao = resposta[i];
 
                         var divPublicacao = document.createElement("div");
                         var spanID = document.createElement("span");
@@ -219,7 +218,6 @@
                         var divDescricao = document.createElement("div");
                         var divButtons = document.createElement("div");
 
-                        spanID.innerHTML = "ID: <b>" + publicacao.idReceita + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
                         divMotivo.innerHTML = "Por que gosta: <b>" + publicacao.pqGosta + "</b>";
@@ -233,7 +231,6 @@
                         divDescricao.className = "publicacao-descricao";
                         divButtons.className = "div-buttons";
 
-                        // ✅ Cria os botões DENTRO do escopo certo
                         if (idUsuario === publicacao.fkUsuario) {
                             let btnEditar = document.createElement("button");
                             let btnDeletar = document.createElement("button");
