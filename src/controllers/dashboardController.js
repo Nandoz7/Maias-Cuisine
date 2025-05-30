@@ -1,36 +1,34 @@
 var dashboardModel = require("../models/dashboardModel");
 
-function getTotalReceitasPorUsuario(req, res) {
+function totalReceitasPorUsuario(req, res) {
     dashboardModel.totalReceitasPorUsuario()
-        .then(resultado => {
+        .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!");
             }
-        }).catch(erro => {
-            console.log(erro);
-            console.log("Erro ao buscar total de receitas por usuário: ", erro.sqlMessage);
+        }).catch(function (erro) {
+            console.log("Erro ao buscar dados por usuário:", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         });
 }
 
-function getTotalReceitasPorHora(req, res) {
+function totalReceitasPorHora(req, res) {
     dashboardModel.totalReceitasPorHora()
-        .then(resultado => {
+        .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!");
             }
-        }).catch(erro => {
-            console.log(erro);
-            console.log("Erro ao buscar total de receitas por hora: ", erro.sqlMessage);
+        }).catch(function (erro) {
+            console.log("Erro ao buscar dados por hora:", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         });
 }
 
 module.exports = {
-    getTotalReceitasPorUsuario,
-    getTotalReceitasPorHora
-}
+    totalReceitasPorUsuario,
+    totalReceitasPorHora
+};

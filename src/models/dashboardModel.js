@@ -1,30 +1,40 @@
 var database = require("../database/config");
 
+// Consulta: Quantidade de postagens por usuário
 function totalReceitasPorUsuario() {
     var instrucaoSql = `
-        SELECT u.nome, COUNT(r.idReceita) AS totalReceitas
-        FROM usuario u
-        LEFT JOIN receita r ON u.idUsuario = r.fkUsuario
-        GROUP BY u.idUsuario
-        ORDER BY totalReceitas DESC
-        LIMIT 5;
+        SELECT 
+            u.nome AS nome, 
+            COUNT(r.idReceita) AS total
+        FROM 
+            usuario u
+        JOIN 
+            receita r ON u.idUsuario = r.fkUsuario
+        GROUP BY 
+            u.nome
+        ORDER BY 
+            total DESC;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
+// Consulta: Quantidade de postagens por hora
 function totalReceitasPorHora() {
     var instrucaoSql = `
-        SELECT HOUR(r.dataHora) AS hora, COUNT(*) AS totalReceitas
-        FROM receita r
-        GROUP BY hora
-        ORDER BY hora;
+        SELECT 
+            HOUR(r.dtPostagem) AS hora, 
+            COUNT(*) AS total
+        FROM 
+            receita r
+        GROUP BY 
+            hora
+        ORDER BY 
+            hora;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
     totalReceitasPorUsuario,
     totalReceitasPorHora
-}
+};

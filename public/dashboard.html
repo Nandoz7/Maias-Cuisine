@@ -24,7 +24,7 @@
             <h1>Maias' Cuisine <img src="./assets/icon/favicon2.svg"></h1>
 
             <div class="hello">
-                <h3>Olá, <span id="b_usuario">undefined</span>!</h3>
+                <h3>Bem vindo de volta, <span id="b_usuario">undefined</span>!</h3>
             </div>
 
             <div class="btn-nav-white">
@@ -66,83 +66,95 @@
                     <canvas id="myChart3"></canvas>
                 </div>
                 <div class="chart-container empty">
+                    <h2>KPI</h2>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
         var idUsuario = Number(sessionStorage.ID_USUARIO);
 
-        // Gráfico 1: receitas por hora
-        const ctx1 = document.getElementById('myChart');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: [
-                    '00h', '01h', '02h', '03h', '04h', '05h',
-                    '06h', '07h', '08h', '09h', '10h', '11h',
-                    '12h', '13h', '14h', '15h', '16h', '17h',
-                    '18h', '19h', '20h', '21h', '22h', '23h'
-                ],
-                datasets: [{
-                    label: 'Receitas postadas por hora',
-                    data: [
-                        0, 1, 0, 0, 0, 2, 3, 5, 8, 6, 4, 5,
-                        7, 8, 6, 5, 4, 3, 2, 4, 3, 2, 1, 0
-                    ],
-                    borderColor: '#E6C3A1',
-                    backgroundColor: '#962828b2',
-                    borderWidth: 2,
-                    tension: 0.3,
-                    fill: true
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Quantidade de receitas' }
-                    },
-                    x: {
-                        title: { display: true, text: 'Hora do dia' }
-                    }
-                }
-            }
-        });
+        // === Gráfico 1: Receitas por hora ===
+        fetch("/dashboard/receitasPorHora")
+            .then(res => res.json())
+            .then(dados => {
+                const horas = dados.map(item => item.hora + "h");
+                const totais = dados.map(item => item.total);
 
-        // Gráfico 2: postagens por usuário
-        const ctx2 = document.getElementById('myChart2');
-        const usuarios = ['Ana', 'Carlos', 'Fernanda', 'João'];
-        const postagens = [5, 8, 3, 10];
-        new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: usuarios,
-                datasets: [{
-                    label: 'Quantidade de Postagens',
-                    data: postagens,
-                    borderWidth: 3,
-                    borderColor: '#962828b2',
-                    backgroundColor: '#E6C3A1'
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Postagens' }
+                const ctx1 = document.getElementById('myChart');
+                new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: horas,
+                        datasets: [{
+                            label: 'Receitas postadas por hora',
+                            data: totais,
+                            borderColor: '#E6C3A1',
+                            backgroundColor: '#962828b2',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true
+                        }]
                     },
-                    x: {
-                        title: { display: true, text: 'Usuários' }
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1  // Isso força o eixo Y a mostrar só números inteiros
+                                },
+                                title: { display: true, text: 'Quantidade de receitas' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Hora do dia' } // ou 'Usuários' no gráfico de barras
+                            }
+                        }
                     }
-                }
-            }
-        });
 
-        // Gráfico 3: resultados do quiz (pizza)
+                });
+            });
+
+        // === Gráfico 2: Receitas por usuário ===
+        fetch("/dashboard/quantidadePorUsuarios")
+            .then(res => res.json())
+            .then(dados => {
+                const nomes = dados.map(item => item.nome);
+                const postagens = dados.map(item => item.total);
+
+                const ctx2 = document.getElementById('myChart2');
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: nomes,
+                        datasets: [{
+                            label: 'Quantidade de Postagens',
+                            data: postagens,
+                            borderWidth: 3,
+                            borderColor: '#962828b2',
+                            backgroundColor: '#E6C3A1'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1  // Isso força o eixo Y a mostrar só números inteiros
+                                },
+                                title: { display: true, text: 'Postagens' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Usuários' } // ou 'Usuários' no gráfico de barras
+                            }
+                        }
+                    }
+
+                });
+            });
+
+        // === Gráfico 3: resultados do quiz ===
         const ctx3 = document.getElementById('myChart3');
         const perguntas = ['Pergunta 1', 'Pergunta 2', 'Pergunta 3', 'Pergunta 4'];
         const acertosPorPergunta = [8, 6, 4, 9];
@@ -167,6 +179,7 @@
             }
         });
     </script>
+
 
 </body>
 
