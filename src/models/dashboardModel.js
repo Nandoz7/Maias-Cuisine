@@ -13,7 +13,8 @@ function totalReceitasPorUsuario() {
         GROUP BY 
             u.nome
         ORDER BY 
-            total DESC;
+            total DESC
+            LIMIT 5;
     `;
     return database.executar(instrucaoSql);
 }
