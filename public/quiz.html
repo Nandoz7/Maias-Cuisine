@@ -44,65 +44,20 @@
 
     </div>
 
-    <div id="pontuacaoEJogo">
-        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
-
-        <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
-            <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
-                <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
-                <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+    <div class="qt-app">
+        <h1>QUIZ - COMIDAS BRASILEIRAS</h1>
+        <div class="qt-quiz">
+            <h2 id="qt-question">Enunciado</h2>
+            <div id="qt-answer-buttons">
+                <button class="qt-btn">quest 1</button>
+                <button class="qt-btn">quest 2</button>
+                <button class="qt-btn">quest 3</button>
+                <button class="qt-btn">quest 4</button>
             </div>
-            <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
-                <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
-                    <span id="spanPontuacaoFinal">***</span>
-                </span>
-                <span id="msgFinal" class="width-fit-content">***</span>
-            </div>
-        </div>
-
-        <div id="jogo" class="width-fit-content flex-colunar border-secondary">
-
-            <div id="infoQuestao" class="padding-8">
-                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
-                    questões.</span>
-            </div>
-
-            <div id="perguntaDaQuestaoAtual" class="padding-8">
-                <span id="spanQuestaoExibida" class="text-bold"></span>
-            </div>
-
-            <div id="infoAlternativas" class="padding-8">
-                <span><em>Escolha uma opção dentre as abaixo:</em></span>
-            </div>
-
-            <div id="opcoes" class="flex-colunar padding-8">
-                <span>
-                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
-                    <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
-                </span>
-                <span>
-                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
-                    <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
-                </span>
-                <span>
-                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
-                    <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
-                </span>
-                <span>
-                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
-                    <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
-                </span>
-            </div>
-
-            <div id="botoes" class="flex-colunar padding-8">
-                <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
-                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
-            </div>
-
+            <button id="qt-next-btn">Next Quest</button>
         </div>
     </div>
+
 </body>
 
 </html>
@@ -111,279 +66,177 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     var idUsuario = Number(sessionStorage.ID_USUARIO);
 
-    const listaDeQuestoes = [
-
+    const questions = [
         {
-            pergunta: "Qual é o prato típico brasileiro feito com feijão-preto, carnes e servido com arroz e couve?",
-            alternativaA: "Baião de dois",
-            alternativaB: "Feijoada",
-            alternativaC: "Mocotó",
-            alternativaD: "Virado à paulista",
-            alternativaCorreta: "alternativaB"
+            question: "O “bolo de rolo” é típico de qual estado brasileiro?",
+            answers: [
+                { id: 3, text: "Piauí", correct: false },
+                { id: 4, text: "Paraná", correct: false },
+                { id: 1, text: "Paraíba", correct: false },
+                { id: 2, text: "Pernambuco", correct: true }
+            ]
         },
-
         {
-            pergunta: "A “pamonha” é feita com qual ingrediente",
-            alternativaA: "Arroz",
-            alternativaB: "Mandioca",
-            alternativaC: "Milho",
-            alternativaD: "Coco",
-            alternativaCorreta: "alternativaC"
+            question: "Qual doce é feito com leite condensado, chocolate e granulado?",
+            answers: [
+                { id: 2, text: "Beijinho", correct: false },
+                { id: 3, text: "Brigadeiro", correct: true },
+                { id: 4, text: "Quindim", correct: false },
+                { id: 1, text: "Pé-de-moleque", correct: false }
+            ]
         },
-
         {
-            pergunta: "O “acarajé” é um prato típico de qual estado brasileiro?",
-            alternativaA: "Pernambuco",
-            alternativaB: "Maranhão",
-            alternativaC: "Ceará",
-            alternativaD: "Bahia",
-            alternativaCorreta: "alternativaD"
+            question: "O que geralmente acompanha o arroz e feijão no prato feito brasileiro?",
+            answers: [
+                { id: 4, text: "Molho barbecue", correct: false },
+                { id: 1, text: "Batata frita", correct: false },
+                { id: 2, text: "Farofa", correct: true },
+                { id: 3, text: "Sushi", correct: false }
+            ]
         },
-
         {
-            pergunta: "Qual desses doces é tradicional na Festa Junina?",
-            alternativaA: "Canjica",
-            alternativaB: "Brigadeiro",
-            alternativaC: "Bolo de cenoura",
-            alternativaD: "Sorvete",
-            alternativaCorreta: "alternativaA"
+            question: "O que é 'moqueca'?",
+            answers: [
+                { id: 2, text: "Doce de leite", correct: false },
+                { id: 3, text: "Churrasco de porco", correct: false },
+                { id: 1, text: "Ensopado de peixe", correct: true },
+                { id: 4, text: "Sopa de mandioca", correct: false }
+            ]
         },
-
         {
-            pergunta: "Qual prato leva arroz, carne de sol, feijão verde e queijo coalho?",
-            alternativaA: "Sarapatel",
-            alternativaB: "Baião de dois",
-            alternativaC: "Feijoada",
-            alternativaD: "Escondidinho",
-            alternativaCorreta: "alternativaB"
+            question: "Qual prato típico leva arroz, pequi e frango?",
+            answers: [
+                { id: 1, text: "Arroz carreteiro", correct: false },
+                { id: 2, text: "Galinhada", correct: true },
+                { id: 3, text: "Baião de dois", correct: false },
+                { id: 4, text: "Vaca atolada", correct: false }
+            ]
         },
-
         {
-            pergunta: "O que é a “moqueca”?",
-            alternativaA: "Doce de coco com leite",
-            alternativaB: "Carne seca desfiada com abóbora",
-            alternativaC: "Ensopado de peixe ou frutos do mar",
-            alternativaD: "Farofa com linguiça",
-            alternativaCorreta: "alternativaC"
+            question: "Qual desses pratos exige que as folhas sejam cozidas por 7 dias para eliminar toxinas?",
+            answers: [
+                { id: 4, text: "Tacacá", correct: false },
+                { id: 3, text: "Vatapá", correct: false },
+                { id: 1, text: "Maniçoba", correct: true },
+                { id: 2, text: "Feijoada", correct: false }
+            ]
         },
-
         {
-            pergunta: "O “virado à paulista” leva qual dos ingredientes abaixo?",
-            alternativaA: "Arroz, feijão, couve e ovo",
-            alternativaB: "Polenta",
-            alternativaC: "Macaxeira",
-            alternativaD: "Arroz de leite",
-            alternativaCorreta: "alternativaA"
+            question: "O que é o 'pinhão', muito consumido na região Sul?",
+            answers: [
+                { id: 3, text: "Folha de chá", correct: false },
+                { id: 4, text: "Raiz comestível", correct: false },
+                { id: 2, text: "Semente da araucária", correct: true },
+                { id: 1, text: "Fruta do cerrado", correct: false }
+            ]
         },
-
         {
-            pergunta: "Qual é o doce brasileiro feito com coco e leite condensado, enrolado no açúcar cristal?",
-            alternativaA: "Cajuzinho",
-            alternativaB: "Doce de leite",
-            alternativaC: "Brigadeiro",
-            alternativaD: "Beijinho",
-            alternativaCorreta: "alternativaD"
+            question: "Qual estado é conhecido pelo uso do tucupi e jambu na culinária?",
+            answers: [
+                { id: 4, text: "Rio Grande do Sul", correct: false },
+                { id: 1, text: "Bahia", correct: false },
+                { id: 3, text: "Minas Gerais", correct: false },
+                { id: 2, text: "Pará", correct: true }
+            ]
         },
-
         {
-            pergunta: "Qual alimento é típico das festas juninas e feito com amendoim torrado e açúcar?",
-            alternativaA: "Pé de moleque",
-            alternativaB: "Canjica",
-            alternativaC: "Pamonha",
-            alternativaD: "Curau",
-            alternativaCorreta: "alternativaA"
+            question: "A maniçoba é um prato típico de qual região?",
+            answers: [
+                { id: 4, text: "Sudeste", correct: false },
+                { id: 1, text: "Sul", correct: false },
+                { id: 3, text: "Norte", correct: true },
+                { id: 2, text: "Centro-Oeste", correct: false }
+            ]
         },
-
         {
-            pergunta: "O “bolo de rolo” é típico de qual estado brasileiro?",
-            alternativaA: "Minas Gerais",
-            alternativaB: "Amazonas",
-            alternativaC: "Pernambuco",
-            alternativaD: "Goiás",
-            alternativaCorreta: "alternativaC"
+            question: "Qual é o prato típico brasileiro feito com feijão-preto e várias carnes?",
+            answers: [
+                { id: 4, text: "Sarapatel", correct: false },
+                { id: 2, text: "Dobradinha", correct: false },
+                { id: 1, text: "Feijoada", correct: true },
+                { id: 3, text: "Moqueca", correct: false }
+            ]
         }
+    ];
 
-    ]
+    const questionElement = document.getElementById("qt-question");
+    const answerButtons = document.getElementById("qt-answer-buttons");
+    const nextButton = document.getElementById("qt-next-btn");
 
-    // variáveis globais    
-    let numeroDaQuestaoAtual = 0
-    let pontuacaoFinal = 0
-    let tentativaIncorreta = 0
-    let certas = 0
-    let erradas = 0
-    let quantidadeDeQuestoes = listaDeQuestoes.length
-    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+    let currentQuestionIndex = 0;
+    let score = 0;
 
-    function onloadEsconder() {
-        document.getElementById('pontuacao').style.display = "none"
-        document.getElementById('jogo').style.display = "none"
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        nextButton.innerHTML = "Próxima";
+        showQuestion();
     }
 
-    function iniciarQuiz() {
-        document.getElementById("spanCertas").innerHTML = certas
-        document.getElementById("spanErradas").innerHTML = erradas
-        document.getElementById('pontuacao').style.display = "flex"
-        document.getElementById('jogo').style.display = "flex"
-        document.getElementById('btnIniciarQuiz').style.display = "none"
-
-        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
-
-        preencherHTMLcomQuestaoAtual(0)
-
-        btnSubmeter.disabled = false
-        btnProx.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = true
-    }
-
-    function preencherHTMLcomQuestaoAtual(index) {
-        habilitarAlternativas(true)
-        const questaoAtual = listaDeQuestoes[index]
-        numeroDaQuestaoAtual = index
-        console.log("questaoAtual")
-        console.log(questaoAtual)
-        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
-        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
-        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
-        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
-        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
-        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
-    }
-
-    function submeter() {
-        const options = document.getElementsByName("option"); // recupera alternativas no html
-
-        let hasChecked = false
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].checked) {
-                hasChecked = true
-                break
-            }
+    function resetState() {
+        nextButton.style.display = "none";
+        while (answerButtons.firstChild) {
+            answerButtons.removeChild(answerButtons.firstChild);
         }
+    }
 
-        if (!hasChecked) {
-            alert("Não há alternativas escolhidas. Escolha uma opção.")
+    function showQuestion() {
+        resetState();
+        let currentQuestion = questions[currentQuestionIndex];
+        let questionNo = currentQuestionIndex + 1;
+        questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+        currentQuestion.answers.forEach((answer) => {
+            const button = document.createElement("button");
+            button.innerHTML = answer.text;
+            button.dataset.id = answer.id;
+            button.classList.add("qt-btn");
+            button.addEventListener("click", selectAnswer);
+            answerButtons.appendChild(button);
+        });
+    }
+
+    function selectAnswer(e) {
+        answers = questions[currentQuestionIndex].answers;
+        const correctAnswer = answers.filter((answer) => answer.correct == true)[0];
+        const selectBtn = e.target;
+        const isCorrect = selectBtn.dataset.id == correctAnswer.id;
+        if (isCorrect) {
+            selectBtn.classList.add("correct");
+            score++;
         } else {
-            btnSubmeter.disabled = true
-            btnProx.disabled = false
-
-            habilitarAlternativas(false)
-
-            checarResposta()
+            selectBtn.classList.add("incorrect");
         }
+        Array.from(answerButtons.children).forEach((button) => {
+            button.disabled = true;
+        });
+        nextButton.style.display = "block";
     }
 
-    function habilitarAlternativas(trueOrFalse) {
-        let opcaoEscolhida = trueOrFalse ? false : true
-
-        primeiraOpcao.disabled = opcaoEscolhida
-        segundaOpcao.disabled = opcaoEscolhida
-        terceiraOpcao.disabled = opcaoEscolhida
-        quartaOpcao.disabled = opcaoEscolhida
-
+    function showScore() {
+        resetState();
+        questionElement.innerHTML = `Você acertou ${score} de ${questions.length} perguntas!`
+        nextButton.innerHTML = "Tentar novamente";
+        nextButton.style.display = "block";
     }
 
-    function avancar() {
-        btnProx.disabled = true
-        btnSubmeter.disabled = false
-
-        desmarcarRadioButtons()
-        limparCoresBackgroundOpcoes()
-
-        if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+    function handleNextButton() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
         } else {
-            finalizarJogo()
+            showScore();
         }
     }
 
-    function tentarNovamente() {
-        // atualiza a página
-        window.location.reload()
-    }
-
-    function checarResposta() {
-        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
-        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
-
-        const options = document.getElementsByName("option"); // recupera alternativas no html
-
-        let alternativaCorreta = null // variável para armazenar a alternativa correta
-
-        options.forEach((option) => {
-            if (option.value === respostaQuestaoAtual) {
-                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
-                alternativaCorreta = option.labels[0].id
-            }
-        })
-
-        // verifica se resposta assinalada é correta
-        options.forEach((option) => {
-            if (option.checked === true && option.value === respostaQuestaoAtual) {
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                pontuacaoFinal++
-                certas++
-                document.getElementById("spanCertas").innerHTML = certas
-                numeroDaQuestaoAtual++
-            } else if (option.checked && option.value !== respostaQuestaoAtual) {
-                const wrongLabelId = option.labels[0].id
-
-                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                tentativaIncorreta++
-                erradas++
-                document.getElementById("spanErradas").innerHTML = erradas
-                numeroDaQuestaoAtual++
-            }
-        })
-    }
-
-    function limparCoresBackgroundOpcoes() {
-        const options = document.getElementsByName("option");
-        options.forEach((option) => {
-            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
-            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
-        })
-    }
-
-    function desmarcarRadioButtons() {
-        const options = document.getElementsByName("option");
-        for (let i = 0; i < options.length; i++) {
-            options[i].checked = false;
+    nextButton.addEventListener("click", () => {
+        if (currentQuestionIndex < questions.length) {
+            handleNextButton();
+        } else {
+            startQuiz();
         }
-    }
+    });
 
-    function finalizarJogo() {
-        let textoParaMensagemFinal = null
-        let classComCoresParaMensagemFinal = null
-        const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+    startQuiz();
 
-        if (porcentagemFinalDeAcertos <= 0.3) {
-            textoParaMensagemFinal = "Parece que você não estudou..."
-            classComCoresParaMensagemFinal = "text-danger-with-bg"
-        }
-        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
-            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
-            classComCoresParaMensagemFinal = "text-warning-with-bg"
-        }
-        else if (porcentagemFinalDeAcertos >= 0.9) {
-            textoParaMensagemFinal = "Uau, parabéns!"
-            classComCoresParaMensagemFinal = "text-success-with-bg"
-        }
-
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
-
-
-        document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
-        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
-
-        document.getElementById('jogo').classList.add("text-new-gray")
-
-        btnProx.disabled = true
-        btnSubmeter.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = false
-
-    }
 </script>
