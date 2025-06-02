@@ -11,12 +11,22 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE quiz (
-idQuiz INT PRIMARY KEY AUTO_INCREMENT,
-qtdAcertos INT NOT NULL,
-qtdErros INT NOT NULL,
-dtQuiz DATETIME DEFAULT CURRENT_TIMESTAMP,
-fkUsuarioQuiz INT UNIQUE,
-CONSTRAINT fkQuizUsu FOREIGN KEY (fkUsuarioQuiz) REFERENCES usuario(idUsuario)
+  idQuiz INT PRIMARY KEY AUTO_INCREMENT,
+  titulo VARCHAR(100) NOT NULL,
+  descricao TEXT,
+  dtQuiz DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE usuario_quiz (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  idUsuario INT,
+  idQuiz INT,
+  tentativas INT DEFAULT 0,  -- Número total de tentativas
+  acertos INT DEFAULT 0,     -- Número de acertos
+  erros INT DEFAULT 0,       -- Número de erros
+  ultima_tentativa DATETIME DEFAULT CURRENT_TIMESTAMP,  -- Data da última tentativa
+  CONSTRAINT fkUsuario FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
+  CONSTRAINT fkQuiz FOREIGN KEY (idQuiz) REFERENCES quiz(idQuiz)
 );
 
 CREATE TABLE receita(
@@ -53,8 +63,18 @@ CONSTRAINT fkCurtRec FOREIGN KEY (idReceita, fkUsuario) REFERENCES receita(idRec
 CONSTRAINT pkComp PRIMARY KEY (idComentario, idUsuario, idReceita, fkUsuario)
 );
 
+SELECT idUsuario, SUM(tentativas) AS total_tentativas
+FROM usuario_quiz
+WHERE idUsuario = :usuario_id
+GROUP BY idUsuario;
+
+SELECT idUsuario, idQuiz, tentativas
+FROM usuario_quiz
+WHERE idUsuario = :usuario_id;
+
 select * from usuario;
 select * from receita;
 select * from curtida;
 select * from comentario;
 select * from quiz;
+select * from usuario_quiz;

@@ -56,6 +56,8 @@
                 <button class="qt-btn">quest 4</button>
             </div>
             <button id="qt-next-btn">Next Quest</button>
+
+            <button id="qt-logout-btn" class="qt-btn" style="display: none;" onclick="sairQuiz()">Sair</button>
         </div>
     </div>
 
@@ -217,9 +219,16 @@
     function showScore() {
         resetState();
         questionElement.innerHTML = `Você acertou ${score} de ${questions.length} perguntas!`
-        nextButton.innerHTML = "Tentar novamente";
+        nextButton.innerHTML = "Tentar   novamente";
         nextButton.style.display = "block";
+
+        document.getElementById("qt-logout-btn").style.display = "block";
     }
+
+    function sairQuiz() {
+        
+    window.location.href = './dashboard.html';
+}
 
     function handleNextButton() {
         currentQuestionIndex++;

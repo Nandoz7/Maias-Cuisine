@@ -154,7 +154,7 @@ img {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s;
-  
+
 }
 
 .qt-btn:hover:not([disabled]) {
@@ -179,6 +179,20 @@ img {
   display: none;
 }
 
+#qt-logout-btn {
+  background: #E6C3A1;
+  color: #000;
+  font-weight: 500;
+  width: 150px;
+  border: 0;
+  padding: 10px;
+  margin: 20px auto 0;
+  border-radius: 50px;
+  cursor: pointer;
+  display: none;
+  text-align: center;
+}
+
 .correct {
   background: green;
 }
@@ -186,4 +200,5 @@ img {
 .incorrect {
   background: red;
 }
+
 /*FIM QUIZ*/
