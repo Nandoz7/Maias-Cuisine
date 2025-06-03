@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="./css/dashboards.css">
     <link rel="icon" href="./assets/icon/favicon2.svg">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/sessao.js"></script>
 
@@ -61,10 +61,12 @@
             </div>
             <div class="bottom-row">
                 <div class="chart-container">
-                    <h2>TENTATIVAS QUIZ</h2>
+                    <h2>QUANTIDADE DE POSTAGENS VOCÊ TEM</h2>
+                    <div id="qtdPostagem"></div>
                 </div>
                 <div class="chart-container ">
                     <h2>APROVEITAMENTO</h2>
+                    <p id="postagensPorUsuario"></p>
                 </div>
             </div>
         </div>
@@ -91,7 +93,7 @@
                             data: totais,
                             borderColor: '#E6C3A1',
                             backgroundColor: '#962828b2',
-                            borderWidth: 2,
+                            borderWidth: 1,
                             tension: 0.3,
                             fill: true
                         }]
@@ -103,10 +105,10 @@
                                 ticks: {
                                     stepSize: 1  // Isso força o eixo Y a mostrar só números inteiros
                                 },
-                                title: { display: true, text: 'Quantidade de receitas' }
+                                title: { display: true, text: 'Quantidade de receitas postadas' }
                             },
                             x: {
-                                title: { display: true, text: 'Hora do dia' } // ou 'Usuários' no gráfico de barras
+                                title: { display: true, text: 'Horas do dia' } // ou 'Usuários' no gráfico de barras
                             }
                         }
                     }
@@ -129,7 +131,7 @@
                         datasets: [{
                             label: 'Quantidade de Postagens',
                             data: postagens,
-                            borderWidth: 3,
+                            borderWidth: 2,
                             borderColor: '#962828b2',
                             backgroundColor: '#E6C3A1'
                         }]
@@ -152,30 +154,20 @@
                 });
             });
 
-        // === Gráfico 3: resultados do quiz ===
-        const ctx3 = document.getElementById('myChart3');
-        const perguntas = ['Pergunta 1', 'Pergunta 2', 'Pergunta 3', 'Pergunta 4'];
-        const acertosPorPergunta = [8, 6, 4, 9];
+            fetch(`/dashboard/qtdPostagensPorUsuario/${idUsuario}`, {
+                method: "GET",
+            }).then(res => res.json())
+              .then(function (resposta){
+                var postagem = document.getElementById('qtdPostagem');
+                console.log(resposta[0].quantidadeDePostagem)
+                postagem.innerHTML = `${resposta[0].quantidadeDePostagem}`
 
-        new Chart(ctx3, {
-            type: 'pie',
-            data: {
-                labels: perguntas,
-                datasets: [{
-                    label: 'Acertos por Pergunta',
-                    data: acertosPorPergunta,
-                    backgroundColor: ['#962828b2', '#E6C3A1', '#d2d2d2', '#000']
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'left'
-                    }
-                }
-            }
-        });
+              })
+                
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+            
     </script>
 
 

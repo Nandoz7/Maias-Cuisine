@@ -35,7 +35,15 @@ function totalReceitasPorHora() {
     return database.executar(instrucaoSql);
 }
 
+function qtdPostagensPorUsuario(idUsuario) {
+    var instrucaoSql = `
+    SELECT COUNT(idReceita) as quantidadeDePostagem FROM receita WHERE fkUsuario =  ${idUsuario};`
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     totalReceitasPorUsuario,
-    totalReceitasPorHora
+    totalReceitasPorHora,
+    qtdPostagensPorUsuario
 };

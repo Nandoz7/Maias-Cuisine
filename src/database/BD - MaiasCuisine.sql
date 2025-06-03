@@ -11,22 +11,18 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE quiz (
-  idQuiz INT PRIMARY KEY AUTO_INCREMENT,
-  titulo VARCHAR(100) NOT NULL,
-  descricao TEXT,
-  dtQuiz DATETIME DEFAULT CURRENT_TIMESTAMP
+idQuiz INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE usuario_quiz (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  idUsuario INT,
-  idQuiz INT,
-  tentativas INT DEFAULT 0,  -- Número total de tentativas
-  acertos INT DEFAULT 0,     -- Número de acertos
-  erros INT DEFAULT 0,       -- Número de erros
-  ultima_tentativa DATETIME DEFAULT CURRENT_TIMESTAMP,  -- Data da última tentativa
-  CONSTRAINT fkUsuario FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
-  CONSTRAINT fkQuiz FOREIGN KEY (idQuiz) REFERENCES quiz(idQuiz)
+CREATE TABLE resultado_quiz(
+idResultadoQuiz INT AUTO_INCREMENT,
+pkUsuario INT,
+fkQuiz INT,
+pontuacao INT NOT NULL,
+dtQuiz DATETIME DEFAULT CURRENT_TIMESTAMP,
+CONSTRAINT fkUsuQuiz FOREIGN KEY (pkUsuario) REFERENCES usuario(idUsuario),
+CONSTRAINT fkQuizUsu FOREIGN KEY (fkQuiz) REFERENCES quiz(idQuiz)
 );
 
 CREATE TABLE receita(

@@ -15,7 +15,7 @@ function listar() {
             u.senha
         FROM receita r
             INNER JOIN usuario u
-                ON r.fkUsuario = u.idUsuario;
+                ON r.fkUsuario = u.idUsuario ORDER BY r.idReceita ASC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
