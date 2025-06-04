@@ -69,6 +69,7 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     var idUsuario = Number(sessionStorage.ID_USUARIO);
 
+    //ARRAY COM AS PERGUNTAS E RESPOSTAS DO QUIZ
     const questions = [
         {
             question: "O “bolo de rolo” é típico de qual estado brasileiro?",
@@ -162,20 +163,23 @@
         }
     ];
 
+    // ELEMENTOS DA INTEFACE DO QUIZ (BOTÕES DE PROXIMA PERGUNTA E ALTERNATIVAS, E ENÚNCIADOS)
     const questionElement = document.getElementById("qt-question");
     const answerButtons = document.getElementById("qt-answer-buttons");
     const nextButton = document.getElementById("qt-next-btn");
 
-    let currentQuestionIndex = 0;
-    let score = 0;
+    let currentQuestionIndex = 0; //PERGUNTA ATUAL
+    let score = 0; // PONTUAÇÃO DO JOGADOR
 
+    // FUNÇÃO QUE INICIA O QUIZ
     function startQuiz() {
-        currentQuestionIndex = 0;
-        score = 0;
-        nextButton.innerHTML = "Próxima";
+        currentQuestionIndex = 0; // PRIMEIRA PERGUNTA
+        score = 0; // PONTUAÇÃO COMEÇA NO 0
+        nextButton.innerHTML = "Próxima"; // A
         showQuestion();
     }
 
+    // FUNÇÃO QUE LIMPA A TELA ANTES DE MOSTRAR A PRÓXIMA QUESTÃO
     function resetState() {
         nextButton.style.display = "none";
         while (answerButtons.firstChild) {
@@ -183,53 +187,63 @@
         }
     }
 
+    // FUNÇÃO QUE MOSTRA A QUESTÃO ATUAL E MOSTRA OS BOTÕES AUTOMATICAMENTE
     function showQuestion() {
-        resetState();
-        let currentQuestion = questions[currentQuestionIndex];
+        resetState(); // LIMPA ANTES DE EXIBIR A PRÓXIMA
+        let currentQuestion = questions[currentQuestionIndex]; // PEGA A QUESTÃO ATUAL
         let questionNo = currentQuestionIndex + 1;
-        questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+        questionElement.innerHTML = questionNo + ". " + currentQuestion.question; // EXIBE ENUNCIADO
 
-        currentQuestion.answers.forEach((answer) => {
+        // CRIA UM BOTÃO PARA CADA RESPOSTA
+        for (let i = 0; i < currentQuestion.answers.length; i++) {
+            let answer = currentQuestion.answers[i];
+
             const button = document.createElement("button");
             button.innerHTML = answer.text;
             button.dataset.id = answer.id;
             button.classList.add("qt-btn");
             button.addEventListener("click", selectAnswer);
             answerButtons.appendChild(button);
-        });
+        }
+
     }
 
+    // VERIFICA SE A QUESTÃO ESTÁ CORRETA OU INCORRETA
     function selectAnswer(e) {
         answers = questions[currentQuestionIndex].answers;
-        const correctAnswer = answers.filter((answer) => answer.correct == true)[0];
-        const selectBtn = e.target;
+        const correctAnswer = answers.filter((answer) => answer.correct == true)[0]; // FILTRA A RESPOSTA CORRETA
+        const selectBtn = e.target; // BOTÃO CLICADO
         const isCorrect = selectBtn.dataset.id == correctAnswer.id;
         if (isCorrect) {
-            selectBtn.classList.add("correct");
-            score++;
+            selectBtn.classList.add("correct"); // ADICIONA CLASSE DE CORRETO (CSS)
+            score++; // AUMENTA PONTUAÇÃO
         } else {
-            selectBtn.classList.add("incorrect");
+            selectBtn.classList.add("incorrect"); // ADICIONA CLASSE DE INCORRETO (CSS)
         }
-        Array.from(answerButtons.children).forEach((button) => {
+        Array.from(answerButtons.children).forEach((button) => { // DESATIVA TODOS OS BOTÕES APÓS CLICAR NA RESPOSTA
             button.disabled = true;
         });
-        nextButton.style.display = "block";
+        nextButton.style.display = "block"; // APÓS CLICAR NA RESPOSTA, O BOTÃO DE "PRÓXIMA QUESTÃO" APARECE
     }
 
+    // FUNÇÃO QUE EXIBE O RESULTADO DO QUIZ APÓS FI
     function showScore() {
         resetState();
         questionElement.innerHTML = `Você acertou ${score} de ${questions.length} perguntas!`
-        nextButton.innerHTML = "Tentar   novamente";
-        nextButton.style.display = "block";
+        nextButton.innerHTML = "Tentar   novamente"; // ALTERA O BOTÃO PARA REINICIAR O JOGO
+        nextButton.style.display = "block"; // MOSTRA O BOTÃO
 
-        document.getElementById("qt-logout-btn").style.display = "block";
+        document.getElementById("qt-logout-btn").style.display = "block"; // MOSTRA O BOTÃO SAIR
+        salvarPontuacao()
     }
 
+    // FUNÇÃO CHAMADA APÓS FINALIZAR O QUIZ
     function sairQuiz() {
-        
-    window.location.href = './dashboard.html';
-}
 
+        window.location.href = './dashboard.html';
+    }
+
+    // FUNÇÃO QUE CONTROLE SE HÁ OU NÃO QUESTÕES. CASO TIVER, VAI PASSANDO PARA AS PRÓXIMAS PERGUNTAS, CASO CONTRÁRIO, FINALIZAR QUIZ E MOSTRAR RESULTADO DO QUIZ
     function handleNextButton() {
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length) {
@@ -239,14 +253,16 @@
         }
     }
 
+    // EVENTO DE CLICK DO BOTÃO 'PRÓXIMA', CASO NÃO HOUVER PRÓXIMAS, ELE REINICIA 
     nextButton.addEventListener("click", () => {
         if (currentQuestionIndex < questions.length) {
-            handleNextButton();
+            handleNextButton(); 
         } else {
             startQuiz();
         }
     });
 
+    // INICIA O QUIZ ASSIM QUE A PÁGINA CARREGAR
     startQuiz();
 
 </script>

@@ -29,7 +29,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
   border-right: 2px solid #3a3a3a;
-  background-color: #1c1c1f;
+  background-color: #23252B;
 }
 
 .header-left a {
@@ -131,7 +131,7 @@ img {
 }
 
 .div-form {
-  background-color: #222227;
+  background-color: #23252B;
   padding: 25px;
   border-radius: 50px;
   width: 100%;
@@ -206,7 +206,7 @@ button:active {
 }
 
 .publicacao {
-  background-color: #1f1f22;
+  background-color: #23252B;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 5px 7px 9px rgba(0, 0, 0, 0.5);

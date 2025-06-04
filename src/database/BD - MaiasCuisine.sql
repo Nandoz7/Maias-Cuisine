@@ -15,6 +15,8 @@ idQuiz INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL
 );
 
+INSERT INTO quiz (nome) VALUES ('QUIZ - COMIDAS BRASILEIRAS');
+
 CREATE TABLE resultado_quiz(
 idResultadoQuiz INT AUTO_INCREMENT,
 pkUsuario INT,
@@ -24,6 +26,11 @@ dtQuiz DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT fkUsuQuiz FOREIGN KEY (pkUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT fkQuizUsu FOREIGN KEY (fkQuiz) REFERENCES quiz(idQuiz)
 );
+
+SELECT (pontuacao)as pontuacao FROM resultado_quiz
+WHERE fkQuiz = 1 AND pkUsuario = ${idUsuario}
+ORDER BY dtQuiz DESC
+LIMIT 1;
 
 CREATE TABLE receita(
 idReceita INT AUTO_INCREMENT,
@@ -35,6 +42,8 @@ dtPostagem DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT fkRecUsu FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT pkComposta PRIMARY KEY (idReceita, fkUsuario)
 );
+
+select count(idReceita) from receita where fkUsuario = 1;
 
 CREATE TABLE curtida(
 idCurtida INT AUTO_INCREMENT,
@@ -58,15 +67,6 @@ CONSTRAINT fkCurtUsu FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
 CONSTRAINT fkCurtRec FOREIGN KEY (idReceita, fkUsuario) REFERENCES receita(idReceita, fkUsuario),
 CONSTRAINT pkComp PRIMARY KEY (idComentario, idUsuario, idReceita, fkUsuario)
 );
-
-SELECT idUsuario, SUM(tentativas) AS total_tentativas
-FROM usuario_quiz
-WHERE idUsuario = :usuario_id
-GROUP BY idUsuario;
-
-SELECT idUsuario, idQuiz, tentativas
-FROM usuario_quiz
-WHERE idUsuario = :usuario_id;
 
 select * from usuario;
 select * from receita;
