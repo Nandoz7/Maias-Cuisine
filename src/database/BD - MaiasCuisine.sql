@@ -74,3 +74,4 @@ select * from curtida;
 select * from comentario;
 select * from quiz;
 select * from usuario_quiz;
+select * from resultado_quiz;

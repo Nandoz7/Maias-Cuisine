@@ -1,26 +1,24 @@
-const { useDebugValue } = require("react");
 var quizModel = require("../models/quizModel");
 
 function registrarPontuacao(req, res) {
+    var pontuacao = req.body.pontuacao;
+    var idUsuario = req.body.idUsuario;
 
-    // resposta.pontuacao / 10 * 100
+    if (pontuacao === undefined || idUsuario === undefined) {
+        res.status(400).send("Pontuação ou ID do usuário está indefinido!");
+        return;
+    }
 
-    quizModel.registrarPontuacao(pontuacao)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao tentar registrar a pontuação! Erro: ",
-                    erro.sqlMessagem
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        )
+    quizModel.registrarPontuacao(pontuacao, idUsuario)
+        .then(resultado => {
+            res.status(200).json({ mensagem: "Pontuação registrada com sucesso!" });
+        })
+        .catch(erro => {
+            console.error("Erro ao registrar pontuação:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
 
 module.exports = {
     registrarPontuacao

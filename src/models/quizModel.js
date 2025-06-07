@@ -1,9 +1,10 @@
 var database = require("../database/config")
 
-function registrarPontuacao(pontuacao) {
-    console.log("Acessei o quiz model")
+function registrarPontuacao(pontuacao, idUsuario) {
+    console.log("Acessando quizModel")
     var instrucaoSql = `
-    SELECT pontuacao AS pontuacao FROM resultado_quiz WHERE fkQuiz = 1 AND pkUsuario = ${idUsuario};`
+    INSERT INTO resultado_quiz (pkUsuario, fkQuiz, pontuacao) VALUES
+    (${idUsuario}, 1, ${pontuacao});`
 
     return database.executar(instrucaoSql);
 }

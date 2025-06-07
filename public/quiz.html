@@ -234,8 +234,30 @@
         nextButton.style.display = "block"; // MOSTRA O BOTÃO
 
         document.getElementById("qt-logout-btn").style.display = "block"; // MOSTRA O BOTÃO SAIR
-        salvarPontuacao()
+        salvarPontuacao();
     }
+
+    function salvarPontuacao() {
+        fetch("/quiz/registrarPontuacao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pontuacao: score,
+                idUsuario: idUsuario
+            })
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro ao registrar pontuação");
+                return res.json();
+            })
+            .then(data => {
+                console.log(data.mensagem);
+            })
+            .catch(erro => console.error(erro));
+    }
+
 
     // FUNÇÃO CHAMADA APÓS FINALIZAR O QUIZ
     function sairQuiz() {
@@ -256,7 +278,7 @@
     // EVENTO DE CLICK DO BOTÃO 'PRÓXIMA', CASO NÃO HOUVER PRÓXIMAS, ELE REINICIA 
     nextButton.addEventListener("click", () => {
         if (currentQuestionIndex < questions.length) {
-            handleNextButton(); 
+            handleNextButton();
         } else {
             startQuiz();
         }
