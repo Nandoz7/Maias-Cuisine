@@ -65,8 +65,8 @@
                     <p id="qtdPostagem"></p>
                 </div>
                 <div class="chart-container ">
-                    <h2>PORCENTAGEM DE ACERTOS DO ÚLTIMO QUZ FEITO:</h2>
-                    <p id="pontuacao"></p>
+                    <h2>APROVEITAMENTO DO ÚLTIMO QUZ FEITO:</h2>
+                    <p id="aproveitamento"></p>
                 </div>
             </div>
         </div>
@@ -159,14 +159,24 @@
             }).then(res => res.json())
               .then(function (resposta){
                 var postagem = document.getElementById('qtdPostagem');
-                console.log(resposta[0].quantidadeDePostagem)
                 postagem.innerHTML = `${resposta[0].quantidadeDePostagem}`
 
               })
+              
+              fetch(`/dashboard/aproveitamentoPorUsuario/${idUsuario}`, {
+                  method: "GET",
+              }).then(res => res.json())
+                .then(function (resposta){
+                  var aproveitamento = document.getElementById('aproveitamento');
+                  var pontuacao = resposta[0].aproveitamento;
+                  var porcentagem = Math.round((pontuacao / 10) * 100);
+                  aproveitamento.innerHTML = `${porcentagem}%`
+                })
                 
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
+
             
     </script>
 

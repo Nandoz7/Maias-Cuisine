@@ -16,4 +16,8 @@ router.get("/qtdPostagensPorUsuario/:idUsuario", function(req, res) {
     dashboardController.qtdPostagensPorUsuario(req, res);
 });
 
+router.get("/aproveitamentoPorUsuario/:idUsuario", function (req, res) {
+    dashboardController.aproveitamentoPorUsuario(req, res);
+});
+
 module.exports = router;

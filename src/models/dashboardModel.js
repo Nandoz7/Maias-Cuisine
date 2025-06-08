@@ -42,8 +42,16 @@ function qtdPostagensPorUsuario(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function aproveitamentoPorUsuario(idUsuario) {
+    var instrucaoSql = `
+    SELECT pontuacao as aproveitamento FROM resultado_quiz WHERE fkQuiz = 1 AND pkUsuario = ${idUsuario} ORDER BY dtQuiz DESC LIMIT 1;`
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     totalReceitasPorUsuario,
     totalReceitasPorHora,
-    qtdPostagensPorUsuario
+    qtdPostagensPorUsuario,
+    aproveitamentoPorUsuario
 };

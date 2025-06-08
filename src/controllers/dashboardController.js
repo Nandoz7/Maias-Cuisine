@@ -43,8 +43,24 @@ function qtdPostagensPorUsuario(req, res) {
         });
 }
 
+function aproveitamentoPorUsuario(req, res) {
+    var idUsuQuiz = req.params.idUsuario
+    dashboardModel.aproveitamentoPorUsuario(idUsuQuiz)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        }).catch(function (erro) {
+            console.log("Erro ao buscar dados por hora:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     totalReceitasPorUsuario,
     totalReceitasPorHora,
-    qtdPostagensPorUsuario
+    qtdPostagensPorUsuario,
+    aproveitamentoPorUsuario
 }
