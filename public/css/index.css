@@ -64,10 +64,10 @@ header .navigation .menu{
   margin: 20px;
   padding: 0;
   transition: 0.3s;
-
+  font-size: 18px;
 }
 
-.menu-item > a:hover{
+.menu-item a:hover{
   color: #962828b2;
   transition: 0.3s;
 }
@@ -125,7 +125,7 @@ section{
 
 .section-two p{
   color: #fff;
-  font-size: 16px;
+  font-size: 20px;
   margin: 20px;
 }
 

@@ -68,6 +68,7 @@ header .navigation .menu {
     margin: 20px;
     padding: 0;
     transition: 0.3s;
+    font-size: 18px;
 
 }
 
@@ -134,7 +135,7 @@ main {
 
 .profile p {
     color: #e6c3a1;
-    font-size: 1.2rem;
+    font-size: 20px;
     font-weight: 400;
 }
 
@@ -143,8 +144,14 @@ section {
     margin-bottom: 50px;
 }
 
+section a {
+    font-size: 40px;
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
 section h2 {
-    font-size: 2rem;
+    font-size: 50px;
     color: #962828cc;
     border-bottom: 3px solid #962828cc;
     padding-bottom: 6px;
@@ -153,7 +160,7 @@ section h2 {
 }
 
 section p {
-    font-size: 1.1rem;
+    font-size: 20px;
     color: #E6C3A1;
     font-weight: 900;
     white-space: pre-line;
@@ -161,4 +168,10 @@ section p {
 
 .inspiration a{
     color: #E6C3A1;
+    transition: 0.3s;
+}
+
+.inspiration a:hover {
+    color: #962828cc;
+    transition: 0.3s;
 }

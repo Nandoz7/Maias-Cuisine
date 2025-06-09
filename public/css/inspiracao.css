@@ -68,7 +68,7 @@ header .navigation .menu {
     margin: 20px;
     padding: 0;
     transition: 0.3s;
-
+    font-size: 18px;
 }
 
 .menu-item>a:hover {
@@ -93,7 +93,7 @@ section {
 }
 
 section h2 {
-    font-size: 2rem;
+    font-size: 50px;
     color: #962828;
     border-bottom: 3px solid #962828;
     padding-bottom: 6px;
@@ -102,7 +102,7 @@ section h2 {
 }
 
 section p {
-    font-size: 1.1rem;
+    font-size: 20px;
     color: #E6C3A1;
     font-weight: 900;
     white-space: pre-line;
