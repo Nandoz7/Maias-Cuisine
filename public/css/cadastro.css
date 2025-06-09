@@ -105,14 +105,20 @@
    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
    width: 500px;
    color: white;
+   position: relative;
+ }
+
+ h2 {
+  padding-top: 50px;
  }
 
  .card a img {
    display: flex;
    position: absolute;
-   left: 250px;
-   height: 80px;
-   padding-top: 30px;
+   left: 20px;
+   height: 40px;
+   padding-top: 0;
+   top: 20px;
  }
 
  .formulario {

@@ -49,7 +49,7 @@
         <div class="formulario">
           <div class="campo">
             <span>Nome completo:</span>
-            <input id="nome_input" type="text" placeholder="Digite seu nome" />
+            <input id="nome_input" type="text" placeholder="Digite seu nome completo" />
           </div>
           <div class="campo">
             <span>E-mail:</span>
@@ -84,14 +84,14 @@
       // Validação: campos obrigatórios
       if (!nome || !email || !senha || !confirmacaoSenha) {
         erro.style.display = "block";
-        mensagem.innerHTML = "Preencher todos os campos para prosseguir";
+        mensagem.innerHTML = "Preencha todos os campos para prosseguir";
         return;
       }
 
       // Validação de email
       if (!email.includes("@") || !email.includes(".")) {
         erro.style.display = "block";
-        mensagem.innerHTML = "Digite um e-mail válido com '@' e '.'";
+        mensagem.innerHTML = "Digite um e-mail válido contendo '@' e '.'";
         return;
       }
 
@@ -126,7 +126,7 @@
       // Verificação de senha igual
       if (senha !== confirmacaoSenha) {
         erro.style.display = "block";
-        mensagem.innerHTML = "As senhas não coincidem.";
+        mensagem.innerHTML = "As senhas não correspondem.";
         return;
       }
       
@@ -154,7 +154,7 @@
         })
         .catch(function (erroBack) {
           erro.style.display = "block";
-          mensagem.innerHTML = "Erro no cadastro. Tente novamente.";
+          mensagem.innerHTML = "Ocorreu um erro no cadastro. Tente novamente";
           console.error(erroBack);
         });
     }
