@@ -85,7 +85,7 @@
                             <button onsubmit="publicar()">Postar</button>
                         </form>
                     </div>
-                    <h1>Mural de Receitas</h1>
+                    <h1>Postagens</h1>
                     <div class="div-results">
                         <div id="feed_container" class="feed-container">
                         </div>
@@ -143,7 +143,6 @@
                 window.alert("Post realizado com sucesso!");
                 window.location = "/feed.html";
                 limparFormulario();
-                // finalizarAguardar();
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -151,7 +150,6 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            // finalizarAguardar();
         });
 
         return false;

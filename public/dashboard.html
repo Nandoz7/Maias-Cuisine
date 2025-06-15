@@ -76,7 +76,6 @@
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
         var idUsuario = Number(sessionStorage.ID_USUARIO);
 
-        // === Gráfico 1: Receitas por hora ===
         fetch("/dashboard/receitasPorHora")
             .then(res => res.json())
             .then(dados => {
@@ -103,12 +102,12 @@
                             y: {
                                 beginAtZero: true,
                                 ticks: {
-                                    stepSize: 1  // Isso força o eixo Y a mostrar só números inteiros
+                                    stepSize: 1
                                 },
                                 title: { display: true, text: 'Quantidade de receitas postadas' }
                             },
                             x: {
-                                title: { display: true, text: 'Horas do dia' } // ou 'Usuários' no gráfico de barras
+                                title: { display: true, text: 'Horas do dia' }
                             }
                         }
                     }
@@ -116,7 +115,7 @@
                 });
             });
 
-        // === Gráfico 2: Receitas por usuário ===
+       
         fetch("/dashboard/quantidadePorUsuarios")
             .then(res => res.json())
             .then(dados => {
@@ -141,12 +140,12 @@
                             y: {
                                 beginAtZero: true,
                                 ticks: {
-                                    stepSize: 1  // Isso força o eixo Y a mostrar só números inteiros
+                                    stepSize: 1
                                 },
                                 title: { display: true, text: 'Postagens' }
                             },
                             x: {
-                                title: { display: true, text: 'Usuários' } // ou 'Usuários' no gráfico de barras
+                                title: { display: true, text: 'Usuários' }
                             }
                         }
                     }

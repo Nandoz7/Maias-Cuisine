@@ -81,21 +81,17 @@
       erro.style.display = "none";
       mensagem.innerHTML = "";
 
-      // Validação: campos obrigatórios
       if (!nome || !email || !senha || !confirmacaoSenha) {
         erro.style.display = "block";
         mensagem.innerHTML = "Preencha todos os campos para prosseguir";
         return;
       }
 
-      // Validação de email
       if (!email.includes("@") || !email.includes(".")) {
         erro.style.display = "block";
         mensagem.innerHTML = "Digite um e-mail válido contendo '@' e '.'";
         return;
       }
-
-      // Validação de senha
       var temMaiuscula = false;
       var temNumero = false;
       var temEspecial = false;
@@ -123,7 +119,6 @@
         return;
       }
 
-      // Verificação de senha igual
       if (senha !== confirmacaoSenha) {
         erro.style.display = "block";
         mensagem.innerHTML = "As senhas não correspondem.";

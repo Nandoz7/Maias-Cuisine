@@ -163,7 +163,7 @@
         }
     ];
 
-    // ELEMENTOS DA INTEFACE DO QUIZ (BOTÕES DE PROXIMA PERGUNTA E ALTERNATIVAS, E ENÚNCIADOS)
+    // ELEMENTOS DA INTEFACE DO QUIZ (ENÚNCIADO, ALTERNATIVAS E PRÓXIMA QUESTÃO)
     const questionElement = document.getElementById("qt-question");
     const answerButtons = document.getElementById("qt-answer-buttons");
     const nextButton = document.getElementById("qt-next-btn");
@@ -175,8 +175,8 @@
     function startQuiz() {
         currentQuestionIndex = 0; // PRIMEIRA PERGUNTA
         score = 0; // PONTUAÇÃO COMEÇA NO 0
-        nextButton.innerHTML = "Próxima"; // A
-        showQuestion();
+        nextButton.innerHTML = "Próxima";
+        showQuestion(); // FUNÇAO QUE EXIBE A QUESTÃO
     }
 
     // FUNÇÃO QUE LIMPA A TELA ANTES DE MOSTRAR A PRÓXIMA QUESTÃO
@@ -226,11 +226,11 @@
         nextButton.style.display = "block"; // APÓS CLICAR NA RESPOSTA, O BOTÃO DE "PRÓXIMA QUESTÃO" APARECE
     }
 
-    // FUNÇÃO QUE EXIBE O RESULTADO DO QUIZ APÓS FI
+    // FUNÇÃO QUE EXIBE O RESULTADO DO QUIZ APÓS FINAL
     function showScore() {
         resetState();
         questionElement.innerHTML = `Você acertou ${score} de ${questions.length} perguntas!`
-        nextButton.innerHTML = "Tentar   novamente"; // ALTERA O BOTÃO PARA REINICIAR O JOGO
+        nextButton.innerHTML = "Tentar novamente"; // ALTERA O BOTÃO PARA REINICIAR O JOGO
         nextButton.style.display = "block"; // MOSTRA O BOTÃO
 
         document.getElementById("qt-logout-btn").style.display = "block"; // MOSTRA O BOTÃO SAIR
